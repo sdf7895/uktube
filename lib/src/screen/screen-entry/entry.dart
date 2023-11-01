@@ -21,7 +21,7 @@ class _EntryScreenState extends State<EntryScreen> {
     return MainContainer(
       appbar: CustomAppBar(
         title: "UKTUBE MUSIC",
-        actions: [],
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
         bgColor: Colors.black,
         textColor: Colors.white,
       ),

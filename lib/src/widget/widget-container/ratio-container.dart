@@ -9,7 +9,7 @@ class RatioContainer extends StatefulWidget {
   RatioContainer({
     super.key,
     required this.child,
-    this.bgColor = Colors.white,
+    this.bgColor = Colors.black,
     this.ratioWidth = 1.0,
     this.ratioHeight = 1.0,
   });
