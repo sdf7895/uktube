@@ -1,30 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_music_clone_coding/src/detail/detail-fast-music-item.dart';
 import 'package:youtube_music_clone_coding/src/detail/detail-music-list-item.dart';
+import 'package:youtube_music_clone_coding/src/detail/detail-music-screen.dart';
 import 'package:youtube_music_clone_coding/src/texts/strings.dart';
+import 'package:youtube_music_clone_coding/src/widget/widget-bottom-sheet/bottom-sheet.dart';
+import 'package:youtube_music_clone_coding/src/widget/widget-bottomNavi/bottom-navigation.dart';
 import 'package:youtube_music_clone_coding/src/widget/widget-container/ratio-container.dart';
 import 'package:youtube_music_clone_coding/src/widget/widget-listView/list-view.dart';
 
+// ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  GlobalKey<CustomBottomNavigationState> globalBottomKey;
+  HomeScreen({
+    super.key,
+    required this.globalBottomKey,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _bottomSheetStatus = false;
+
   @override
   Widget build(BuildContext context) {
-    return RatioContainer(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Column(children: makeStartMusicListViewWidgets()),
-            Column(children: makeTitleListViewWidgets()),
-          ],
+    return Stack(
+      children: [
+        RatioContainer(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Column(children: makeStartMusicListViewWidgets()),
+                Column(children: makeTitleListViewWidgets()),
+              ],
+            ),
+          ),
         ),
-      ),
+        BottomSheetWidget(
+          bgColor: Colors.black,
+          isOpen: _bottomSheetStatus,
+          child: MusicScreen(),
+        ),
+      ],
     );
+  }
+
+  void _handleBottomSheetStatus({required bool status}) {
+    if (widget.globalBottomKey.currentState != null) {
+      widget.globalBottomKey.currentState!.handleBottomUpDown(state: !status);
+    }
+    setState(() {
+      _bottomSheetStatus = status;
+    });
   }
 
   List<TitleListViewWidget> makeStartMusicListViewWidgets() {
@@ -38,27 +66,37 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               FastMusicItem(
                 item: FastMusicListItemModel(
-                    title: '테스트',
-                    thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-                    singer: '테스트가수'),
+                  title: '테스트1',
+                  thumbnailUrl: 'https://source.unsplash.com/random/300×300',
+                  singer: '테스트가수',
+                  onClick: () {
+                    _handleBottomSheetStatus(status: true);
+                  },
+                ),
               ),
               FastMusicItem(
                 item: FastMusicListItemModel(
-                    title: '테스트',
-                    thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-                    singer: '테스트가수'),
+                  title: '테스트',
+                  thumbnailUrl: 'https://source.unsplash.com/random/300×300',
+                  singer: '테스트가수',
+                  onClick: () {},
+                ),
               ),
               FastMusicItem(
                 item: FastMusicListItemModel(
-                    title: '테스트',
-                    thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-                    singer: '테스트가수'),
+                  title: '테스트',
+                  thumbnailUrl: 'https://source.unsplash.com/random/300×300',
+                  singer: '테스트가수',
+                  onClick: () {},
+                ),
               ),
               FastMusicItem(
                 item: FastMusicListItemModel(
-                    title: '테스트',
-                    thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-                    singer: '테스트가수'),
+                  title: '테스트',
+                  thumbnailUrl: 'https://source.unsplash.com/random/300×300',
+                  singer: '테스트가수',
+                  onClick: () {},
+                ),
               )
             ],
           );
@@ -71,15 +109,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return listVivewitems
         .map(
           (item) => TitleListViewWidget(
-            heightRatio: 0.25,
+            heightRatio: 0.30,
             title: item.title,
             itemCount: item.itemCount,
             itemBuilder: (BuildContext context, index) {
-              return MusicListItem(
-                item: MusicListItemModel(
-                    title: item.subTitle,
-                    thumbnailUrl: item.thumbnailUrl,
-                    singer: item.singer),
+              return GestureDetector(
+                onTap: () {},
+                child: MusicListItem(
+                  item: MusicListItemModel(
+                      title: item.subTitle,
+                      thumbnailUrl: item.thumbnailUrl,
+                      singer: item.singer),
+                ),
               );
             },
           ),

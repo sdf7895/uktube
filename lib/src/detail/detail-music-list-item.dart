@@ -19,6 +19,9 @@ class MusicListItem extends StatelessWidget {
           children: [
             Image.network(
               item.thumbnailUrl,
+              fit: BoxFit.cover,
+              width: 200,
+              height: 150,
             ),
             Text(
               item.title,

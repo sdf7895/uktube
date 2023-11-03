@@ -16,16 +16,25 @@ class EntryScreen extends StatefulWidget {
 
 class _EntryScreenState extends State<EntryScreen> {
   int _index = 0;
+  final GlobalKey<CustomBottomNavigationState> _bottomNavigationStateKey =
+      GlobalKey<CustomBottomNavigationState>();
+
   @override
   Widget build(BuildContext context) {
     return MainContainer(
       appbar: CustomAppBar(
         title: "UKTUBE MUSIC",
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.search))],
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.search),
+          ),
+        ],
         bgColor: Colors.black,
         textColor: Colors.white,
       ),
       bottomNavigationBar: CustomBottomNavigation(
+        key: _bottomNavigationStateKey,
         onChange: (index) {
           setState(() {
             _index = index;
@@ -39,13 +48,17 @@ class _EntryScreenState extends State<EntryScreen> {
   Widget _seletedScreen() {
     switch (_index) {
       case 0:
-        return HomeScreen();
+        return HomeScreen(
+          globalBottomKey: _bottomNavigationStateKey,
+        );
       case 1:
-        return AtourScreen();
+        return const AtourScreen();
       case 2:
-        return StorageBoxScreen();
+        return const StorageBoxScreen();
       default:
-        return HomeScreen();
+        return HomeScreen(
+          globalBottomKey: _bottomNavigationStateKey,
+        );
     }
   }
 }
