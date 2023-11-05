@@ -9,6 +9,8 @@ class BottomSheetWidget extends StatefulWidget {
   double ratioWidth;
   double ratioHeight;
 
+  Function(bool status)? onCurrentStatus;
+
   BottomSheetWidget({
     super.key,
     required this.child,
@@ -16,6 +18,7 @@ class BottomSheetWidget extends StatefulWidget {
     this.isOpen = false,
     this.ratioWidth = 1,
     this.ratioHeight = 1,
+    this.onCurrentStatus,
   });
 
   @override
@@ -24,6 +27,7 @@ class BottomSheetWidget extends StatefulWidget {
 
 class _BottomSheetWidgetState extends State<BottomSheetWidget>
     with SingleTickerProviderStateMixin {
+  double _offset = 0.0;
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
 
@@ -34,15 +38,57 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
       builder: (context, child) {
         return SlideTransition(
           position: _offsetAnimation,
-          child: RatioContainer(
-            bgColor: widget.bgColor,
-            ratioWidth: widget.ratioWidth,
-            ratioHeight: widget.ratioHeight,
-            child: widget.child,
+          child: GestureDetector(
+            onPanUpdate: (details) {
+              bottomDownUpdate(details: details);
+            },
+            onPanEnd: (details) {
+              bottomUpUpdate();
+            },
+            child: RatioContainer(
+              margin: _offset,
+              bgColor: widget.bgColor,
+              ratioWidth: widget.ratioWidth,
+              ratioHeight: widget.ratioHeight,
+              child: widget.child,
+            ),
           ),
         );
       },
     );
+  }
+
+  void bottomDownUpdate({required DragUpdateDetails details}) {
+    double y = details.delta.dy;
+
+    setState(
+      () {
+        y = y / 2;
+
+        if (_offset + y < 0) {
+          _offset = 0.0;
+        } else if (_offset > MediaQuery.of(context).size.height / 20) {
+          if (widget.onCurrentStatus != null) {
+            widget.onCurrentStatus!(false);
+          }
+          _controller.reverse();
+        } else {
+          _offset += y;
+        }
+      },
+    );
+  }
+
+  void bottomUpUpdate() {
+    if (_offset < MediaQuery.of(context).size.height / 20) {
+      setState(() {
+        if (widget.onCurrentStatus != null) {
+          widget.onCurrentStatus!(widget.isOpen);
+        }
+        _offset = 0.0;
+      });
+      _controller.forward();
+    }
   }
 
   @override
@@ -72,9 +118,12 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
   @override
   void didUpdateWidget(BottomSheetWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print('check sheet');
+
     if (widget.isOpen) {
       _controller.forward();
+      setState(() {
+        _offset = 0.0;
+      });
     } else {
       _controller.reverse();
     }

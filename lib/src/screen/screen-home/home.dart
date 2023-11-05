@@ -4,16 +4,15 @@ import 'package:youtube_music_clone_coding/src/detail/detail-music-list-item.dar
 import 'package:youtube_music_clone_coding/src/detail/detail-music-screen.dart';
 import 'package:youtube_music_clone_coding/src/texts/strings.dart';
 import 'package:youtube_music_clone_coding/src/widget/widget-bottom-sheet/bottom-sheet.dart';
-import 'package:youtube_music_clone_coding/src/widget/widget-bottomNavi/bottom-navigation.dart';
 import 'package:youtube_music_clone_coding/src/widget/widget-container/ratio-container.dart';
 import 'package:youtube_music_clone_coding/src/widget/widget-listView/list-view.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
-  GlobalKey<CustomBottomNavigationState> globalBottomKey;
+  Function(bool status) itemOnClick;
   HomeScreen({
     super.key,
-    required this.globalBottomKey,
+    required this.itemOnClick,
   });
 
   @override
@@ -40,16 +39,28 @@ class _HomeScreenState extends State<HomeScreen> {
         BottomSheetWidget(
           bgColor: Colors.black,
           isOpen: _bottomSheetStatus,
-          child: MusicScreen(),
+          child: MusicScreen(onItemClick: (status) {
+            _handleBottomSheetStatus(status: status);
+            widget.itemOnClick(status);
+          }),
+          onCurrentStatus: (status) {
+            widget.itemOnClick(status);
+
+            setState(() {
+              _bottomSheetStatus = status;
+            });
+          },
         ),
       ],
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void _handleBottomSheetStatus({required bool status}) {
-    if (widget.globalBottomKey.currentState != null) {
-      widget.globalBottomKey.currentState!.handleBottomUpDown(state: !status);
-    }
     setState(() {
       _bottomSheetStatus = status;
     });
@@ -71,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   singer: '테스트가수',
                   onClick: () {
                     _handleBottomSheetStatus(status: true);
+                    widget.itemOnClick(_bottomSheetStatus);
                   },
                 ),
               ),

@@ -7,6 +7,8 @@ class CustomBottomNavigation extends StatefulWidget {
   final Color unselectedItemColor;
   final Color selectedItemColor;
 
+  final bool isOpen;
+
   Function(int index)? onChange;
   // ignore: use_key_in_widget_constructors
   CustomBottomNavigation({
@@ -14,6 +16,7 @@ class CustomBottomNavigation extends StatefulWidget {
     this.bgColor = Colors.black,
     this.unselectedItemColor = Colors.grey,
     this.selectedItemColor = Colors.white,
+    this.isOpen = true,
     this.onChange,
   });
 
@@ -26,7 +29,6 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation>
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
 
-  bool _status = false;
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -57,18 +59,12 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation>
     );
   }
 
-  void handleBottomUpDown({required bool state}) {
-    setState(() {
-      _status = state;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 200),
       vsync: this,
     )..forward();
 
@@ -82,16 +78,14 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation>
       ),
     );
 
-    if (!_status) {
-      _controller.reverse();
-    }
+    _controller.forward();
   }
 
   @override
   void didUpdateWidget(CustomBottomNavigation oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (_status) {
+    if (widget.isOpen) {
       _controller.forward();
     } else {
       _controller.reverse();

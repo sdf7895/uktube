@@ -3,7 +3,7 @@ import 'package:youtube_music_clone_coding/src/widget/widget-appbar/appbar.dart'
 
 // ignore: must_be_immutable
 class MainContainer extends StatefulWidget {
-  CustomAppBar appbar;
+  CustomAppBar? appbar;
   Widget child;
   Widget bottomNavigationBar;
   double ratioWidth;
@@ -11,7 +11,7 @@ class MainContainer extends StatefulWidget {
 
   MainContainer({
     super.key,
-    required this.appbar,
+    this.appbar,
     required this.child,
     required this.bottomNavigationBar,
     this.ratioWidth = 1.0,
@@ -26,7 +26,7 @@ class _MainContainerState extends State<MainContainer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.appbar,
+      appBar: widget.appbar != null ? widget.appbar : null,
       body: Container(
         width: MediaQuery.sizeOf(context).width * widget.ratioWidth,
         height: MediaQuery.sizeOf(context).height * widget.ratioHeight,
