@@ -71,7 +71,7 @@ class _MusicMiniPlayerState extends State<MusicMiniPlayer>
     super.initState();
 
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 700),
       vsync: this,
     )..forward();
 

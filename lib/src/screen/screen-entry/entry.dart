@@ -5,6 +5,7 @@ import 'package:youtube_music_clone_coding/src/screen/screen-storageBox/storage-
 import 'package:youtube_music_clone_coding/src/widget/widget-bottomNavi/bottom-navigation.dart';
 import 'package:youtube_music_clone_coding/src/widget/widget-music-player/music-mini-player.dart';
 
+import '../../texts/strings.dart';
 import '../../widget/widget-appbar/appbar.dart';
 import '../../widget/widget-container/main-container.dart';
 
@@ -22,7 +23,7 @@ class _EntryScreenState extends State<EntryScreen> {
   Widget build(BuildContext context) {
     return MainContainer(
       appbar: CustomAppBar(
-        title: "UKTUBE MUSIC",
+        title: MainTitleMusic.title,
         actions: [
           IconButton(
             onPressed: () {},

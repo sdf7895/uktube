@@ -10,3 +10,7 @@ class HedaerTitleMusic {
   static String get headerTitle3 => '운동할때 듣기 좋은 곡';
   static String get headerTitle4 => '코딩할때 듣기 좋은 곡';
 }
+
+class MainTitleMusic {
+  static String get title => 'UKTUBE MUSIC';
+}
