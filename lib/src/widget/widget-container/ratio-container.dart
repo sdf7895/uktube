@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 class RatioContainer extends StatefulWidget {
   double ratioWidth;
   double ratioHeight;
+  double margin;
+  double padding;
   Widget child;
   Color bgColor;
   RatioContainer({
@@ -12,6 +14,8 @@ class RatioContainer extends StatefulWidget {
     this.bgColor = Colors.black,
     this.ratioWidth = 1.0,
     this.ratioHeight = 1.0,
+    this.margin = 0.0,
+    this.padding = 0.0,
   });
 
   @override
@@ -21,11 +25,15 @@ class RatioContainer extends StatefulWidget {
 class _RatioContainerState extends State<RatioContainer> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: widget.bgColor,
-      width: MediaQuery.sizeOf(context).width * widget.ratioWidth,
-      height: MediaQuery.sizeOf(context).height * widget.ratioHeight,
-      child: widget.child,
+    return Padding(
+      padding: EdgeInsets.all(widget.padding),
+      child: Container(
+        margin: EdgeInsets.only(top: widget.margin),
+        color: widget.bgColor,
+        width: MediaQuery.sizeOf(context).width * widget.ratioWidth,
+        height: MediaQuery.sizeOf(context).height * widget.ratioHeight,
+        child: widget.child,
+      ),
     );
   }
 }
