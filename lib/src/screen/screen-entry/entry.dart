@@ -3,6 +3,7 @@ import 'package:youtube_music_clone_coding/src/screen/screen-atour/atour.dart';
 import 'package:youtube_music_clone_coding/src/screen/screen-home/home.dart';
 import 'package:youtube_music_clone_coding/src/screen/screen-storageBox/storage-box.dart';
 import 'package:youtube_music_clone_coding/src/widget/widget-bottomNavi/bottom-navigation.dart';
+import 'package:youtube_music_clone_coding/src/widget/widget-music-player/music-mini-player.dart';
 
 import '../../widget/widget-appbar/appbar.dart';
 import '../../widget/widget-container/main-container.dart';
@@ -16,9 +17,7 @@ class EntryScreen extends StatefulWidget {
 
 class _EntryScreenState extends State<EntryScreen> {
   int _index = 0;
-  final GlobalKey<CustomBottomNavigationState> _bottomNavigationStateKey =
-      GlobalKey<CustomBottomNavigationState>();
-
+  bool _bottomStatus = true;
   @override
   Widget build(BuildContext context) {
     return MainContainer(
@@ -34,22 +33,40 @@ class _EntryScreenState extends State<EntryScreen> {
         textColor: Colors.white,
       ),
       bottomNavigationBar: CustomBottomNavigation(
-        key: _bottomNavigationStateKey,
+        isOpen: _bottomStatus,
         onChange: (index) {
           setState(() {
             _index = index;
           });
         },
       ),
-      child: _seletedScreen(),
+      child: Stack(
+        children: [
+          _seletedScreen(),
+          Positioned(
+            bottom: 670,
+            child: MusicMiniPlayer(
+              isOpen: _bottomStatus,
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  void changeBottomStatus({required bool status}) {
+    setState(() {
+      _bottomStatus = status;
+    });
   }
 
   Widget _seletedScreen() {
     switch (_index) {
       case 0:
         return HomeScreen(
-          globalBottomKey: _bottomNavigationStateKey,
+          itemOnClick: (status) {
+            changeBottomStatus(status: !status);
+          },
         );
       case 1:
         return const AtourScreen();
@@ -57,7 +74,9 @@ class _EntryScreenState extends State<EntryScreen> {
         return const StorageBoxScreen();
       default:
         return HomeScreen(
-          globalBottomKey: _bottomNavigationStateKey,
+          itemOnClick: (status) {
+            changeBottomStatus(status: !status);
+          },
         );
     }
   }
