@@ -43,7 +43,9 @@ class CustomBottomNavigationState extends State<CustomBottomNavigation>
             selectedItemColor: widget.selectedItemColor,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                  icon: const Icon(Icons.home), label: BottomNavigation.home),
+                icon: const Icon(Icons.home),
+                label: BottomNavigation.home,
+              ),
               BottomNavigationBarItem(
                   icon: const Icon(Icons.circle_notifications_rounded),
                   label: BottomNavigation.aTour),

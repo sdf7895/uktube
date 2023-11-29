@@ -77,9 +77,9 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               FastMusicItem(
                 item: FastMusicListItemModel(
-                  title: '테스트1',
+                  title: '너였다면',
                   thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-                  singer: '테스트가수',
+                  singer: '정승환',
                   onClick: () {
                     _handleBottomSheetStatus(status: true);
                     widget.itemOnClick(_bottomSheetStatus);
@@ -88,25 +88,25 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               FastMusicItem(
                 item: FastMusicListItemModel(
-                  title: '테스트',
+                  title: 'With me',
                   thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-                  singer: '테스트가수',
+                  singer: '휘성',
                   onClick: () {},
                 ),
               ),
               FastMusicItem(
                 item: FastMusicListItemModel(
-                  title: '테스트',
+                  title: '외톨이야',
                   thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-                  singer: '테스트가수',
+                  singer: '씨엔블루',
                   onClick: () {},
                 ),
               ),
               FastMusicItem(
                 item: FastMusicListItemModel(
-                  title: '테스트',
+                  title: '좋은사람',
                   thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-                  singer: '테스트가수',
+                  singer: '박효신',
                   onClick: () {},
                 ),
               )
@@ -145,33 +145,33 @@ class _HomeScreenState extends State<HomeScreen> {
       title: HedaerTitleMusic.headerTitle,
       fontSize: 30,
       itemCount: 10,
-      subTitle: '테스트',
+      subTitle: '너였다면',
       thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-      singer: '테스트가수',
+      singer: '정승환',
     ),
     TitleListViewWidgetModel(
       title: HedaerTitleMusic.headerTitle2,
       fontSize: 25,
       itemCount: 10,
-      subTitle: '테스트',
+      subTitle: 'With me',
       thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-      singer: '테스트가수',
+      singer: '휘성',
     ),
     TitleListViewWidgetModel(
       title: HedaerTitleMusic.headerTitle3,
       fontSize: 25,
       itemCount: 10,
-      subTitle: '테스트',
+      subTitle: '외톨이야',
       thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-      singer: '테스트가수',
+      singer: '씨엔블루',
     ),
     TitleListViewWidgetModel(
       title: HedaerTitleMusic.headerTitle4,
       fontSize: 25,
       itemCount: 10,
-      subTitle: '테스트',
+      subTitle: '좋은사람',
       thumbnailUrl: 'https://source.unsplash.com/random/300×300',
-      singer: '테스트가수',
+      singer: '박효신',
     ),
   ];
 }

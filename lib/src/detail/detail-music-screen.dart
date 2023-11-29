@@ -78,9 +78,9 @@ class MusicText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 30),
       child: const Text(
-        '테스트 제목',
+        '너였다면',
         style: TextStyle(
-            fontWeight: FontWeight.bold, fontSize: 30, color: Colors.white),
+            fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
       ),
     );
   }

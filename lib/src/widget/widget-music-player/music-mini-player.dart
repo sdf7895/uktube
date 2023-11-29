@@ -100,20 +100,20 @@ class _MusicMiniPlayerState extends State<MusicMiniPlayer>
   }
 
   Widget _singerInfo() {
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(6.0),
           child: Text(
-            '테스트노래제목',
+            '너였다면',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 8.0),
+          padding: EdgeInsets.only(left: 8.0),
           child: Text(
-            '테스트가수',
+            '정승환',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         )
